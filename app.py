@@ -4,7 +4,7 @@ from src.train_sms_model import sms_model
 from src.train_url_model import url_model
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 CORS(app)  # <-- important for separate frontend
 
 MODEL1_PATH = "models/msg_model.pkl"
@@ -21,7 +21,7 @@ if not os.path.exists(MODEL2_PATH):
 
 from src.predict import predict_spam
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
     
@@ -68,5 +68,6 @@ if __name__ == "__main__":
 #     text = input("Enter URL or message: ")
 #     result = predict_spam(text)
 #     print(result)
+
 
 
