@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from src.train_sms_model import sms_model
 from src.train_url_model import url_model
@@ -68,6 +68,7 @@ if __name__ == "__main__":
 #     text = input("Enter URL or message: ")
 #     result = predict_spam(text)
 #     print(result)
+
 
 
 
