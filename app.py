@@ -21,10 +21,10 @@ if not os.path.exists(MODEL2_PATH):
 
 from src.predict import predict_spam
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
-    return jsonify({"message": "API is running"})
-
+    return render_template("index.html")
+    
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
@@ -68,4 +68,5 @@ if __name__ == "__main__":
 #     text = input("Enter URL or message: ")
 #     result = predict_spam(text)
 #     print(result)
+
 
