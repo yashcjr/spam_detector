@@ -14,16 +14,16 @@ document.getElementById('predictBtn').addEventListener('click', async () => {
     resultDiv.classList.remove("hidden");
 
     try {
-       /*  const response = await fetch('/predict', {
+         const response = await fetch('/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: userInput })
-        }); */
+        }); /*
            const response = await fetch('http://localhost:5000/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: userInput })
-        });
+        }); */
 
 
 
@@ -46,3 +46,4 @@ document.getElementById('predictBtn').addEventListener('click', async () => {
         console.error("Prediction error:", err);
     }
 });
+
