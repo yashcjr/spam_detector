@@ -4,14 +4,14 @@ import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-from src.preprocess import clean_text, create_vectorizer
+from src.preprocess import clean_text_url, create_vectorizer_url
 
 def url_model():
     # Load dataset
-    df = pd.read_csv("data/merged_url_dataset.csv")
+    df = pd.read_csv("/home/yash/spam_detector/spam_web_app/data/merged_url_dataset.csv")
 
     # Clean URLs
-    df['url'] = df['url'].apply(clean_text)
+    df['url'] = df['url'].apply(clean_text_url)
 
     # Split data
     X_train, X_test, y_train, y_test = train_test_split(
@@ -19,7 +19,7 @@ def url_model():
     )
 
     # Vectorize
-    vectorizer, X_train_vec = create_vectorizer(X_train)
+    vectorizer, X_train_vec = create_vectorizer_url(X_train)
     X_test_vec = vectorizer.transform(X_test)
 
     # Train model
@@ -28,7 +28,7 @@ def url_model():
 
     # Evaluate
     y_pred = model.predict(X_test_vec)
-    # print("URL Model Accuracy:", accuracy_score(y_test, y_pred))
+    print("URL Model Accuracy:", accuracy_score(y_test, y_pred))
 
     # Save model & vectorizer
     with open("models/url_model.pkl", "wb") as f:
@@ -36,4 +36,3 @@ def url_model():
     with open("models/url_vectorizer.pkl", "wb") as f:
         pickle.dump(vectorizer, f)
 
-    # print("URL model and vectorizer saved successfully.")
