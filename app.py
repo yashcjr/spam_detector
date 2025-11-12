@@ -3,6 +3,8 @@ from flask_cors import CORS
 from src.train_sms_model import sms_model
 from src.train_url_model import url_model
 import os
+import threading
+import time
 
 app = Flask(__name__, template_folder="templates")
 CORS(app)  # <-- important for separate frontend
@@ -42,8 +44,20 @@ def predict():
     return jsonify({"result": result})
 
 
+#this function will keep render alive for eternity
+def keep_alive():
+    while True:
+        time.sleep(600)
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, debugger=True)
+    t1 = threading.Thread(target=app.run(debug=True, port=5000, debugger=True))
+    t2 = threading.Thread(target=keep_alive)
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
 
 
 
@@ -68,7 +82,6 @@ if __name__ == "__main__":
 #     text = input("Enter URL or message: ")
 #     result = predict_spam(text)
 #     print(result)
-
 
 
 
